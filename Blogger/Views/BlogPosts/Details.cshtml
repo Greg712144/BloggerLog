@@ -1,0 +1,116 @@
+﻿@model Blogger.Models.BlogPosts
+
+@{
+    ViewBag.Title = "Details";
+}
+<body class="single-post">
+
+    <div id="content" class="site-content center-relative" style="text-align:center;">
+        <div class="single-post-wrapper content-1070 center-relative">
+
+            <article class="center-relative">
+
+                <h1 class="entry-title">
+                    @Model.Abstract
+                </h1>
+                <div class="post-info content-660 center-relative">
+                    <div class="cat-links">
+                        <ul>
+                            <li><a>@Model.Title</a></li>
+                        </ul>
+                    </div>
+                    <div class="entry-date published">@Model.Created</div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="entry-content">
+
+                    <div class="content-wrap content-660 center-relative ">
+                        <img src="@Model.Photo" alt="">
+                        <br>
+                        <br>
+                        <p>@Model.BlogBody</p>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </article>
+            <h2>Comments</h2>
+            <hr />
+
+            <div class="contact-form">
+                @using (Html.BeginForm("Create", "Comments", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken();
+                    @Html.HiddenFor(model => model.Id);
+                    @Html.HiddenFor(model => model.Slug);
+                    <p><textarea id="comBody" name="comBody" placeholder="Message"></textarea></p>
+                    <p><input type="submit" value="Add Comment"></p>
+                }
+            </div>
+            @if (Model.Comments.Count() > 0)
+            {
+
+                <div>
+                    @foreach (var com in Model.Comments.OrderByDescending(c => c.Created))
+                    {
+                        if (com.AuthorId != null)
+                        {
+                            <p style="color:darkcyan; text-align:left;">@com.AuthorId</p>
+                        }
+                        else
+                        {
+                            <p style="color:darkcyan;text-align:left;">Guest</p>
+                        }
+                        <p style="color:darkcyan; text-align:left;">@com.Created</p>
+                        <br />
+                        <p style="text-align:left;">@com.ComBody</p>
+                        <p style="text-align:left;">
+                            <a class="button" href="#popup1">Edit</a>  
+                            <a class="button" href="#popup2">Delete</a>
+                        </p>
+                        <br />
+
+                    }
+                </div>
+
+            }
+        </div>
+    </div>
+</body>
+
+
+    <a class="button" href="#popup1">Let me Pop up</a>
+
+
+<div id="popup1" class="overlay">
+    <div class="popup">
+        <h2>Changed your mind ?...</h2>
+        <a class="close" href="#">&times;</a>
+        <div class="content">
+            @using (Html.BeginForm("Edit", "Comments", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.Hidden("BlogId", Model.Id)
+
+                <div class="form-group">
+                    @Html.Label("Edit Here", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.Editor("ComBody", new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessage("ComBody", "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<div id="popup1" class="overlay">
+    <div class="popup">
+        <h2>Here i am</h2>
+        <a class="close" href="#">&times;</a>
+        <div class="content">
+            Thank to pop me out of that button, but now i'm done so you can close this window.
+        </div>
+    </div>
+</div>

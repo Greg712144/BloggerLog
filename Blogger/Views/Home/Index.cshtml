@@ -1,0 +1,46 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<Blogger.Models.BlogPosts>
+@{
+    ViewBag.Title = "Home Page";
+
+}
+
+<div id="blog-wrapper">
+    <div class="blog-holder center-relative">
+        @foreach (var blog in Model)
+        {
+
+            <article id="post-1" class="blog-item-holder featured-post">
+                <div class="entry-content relative">
+                    <div class="content-1170 center-relative">
+                        <div class="cat-links">
+                            <ul>
+                                <li>
+                                    <a>@blog.Title</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="entry-date published">@blog.Created</div>
+                        <h2 class="entry-title">
+                            <a href=@Url.Action("Details","BlogPosts", new { slug = blog.Slug})>@blog.Abstract</a>
+                        </h2>
+                        <div class="excerpt">
+                            @blog.BlogBody
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="clear"></div>
+                    
+                </div>
+            </article>
+        }
+        Page@(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+        <br />
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchStr = ViewBag.Search }))
+    </div>
+</div>
+<div class="featured-image-holder">
+    <div class="featured-post-image" style="background-image: url('../../Images/Blogger1.jpg')"></div>
+
+</div>

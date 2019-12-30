@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html>
+@{
+
+    Layout = null;
+}
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blogger</title>
+
+
+    <link href="~/Content/PagesList.css" rel="stylesheet" />
+    <link href="~/CSS/carouFredSel.css" rel="stylesheet" />
+    <link href="~/CSS/clear.css" rel="stylesheet" />
+    <link href="~/CSS/common.css" rel="stylesheet" />
+    <link href="~/CSS/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/CSS/sm-clean.css" rel="stylesheet" />
+    <link href="~/CSS/style.css" rel="stylesheet" />
+</head>
+
+<body class="about page page-template-default">
+    <!-- Preloader Gif -->
+    <table class="doc-loader">
+        <tbody>
+            <tr>
+                <td>
+                    <img src="~/Images/ajax-document-loader.gif" alt="Loading...">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Left Sidebar -->
+    <div id="sidebar" class="sidebar">
+        <div class="menu-left-part">
+
+            <div class="search-holder">
+                <label>
+                    @using (Html.BeginForm("Index", "Home", FormMethod.Get, htmlAttributes: new { @class = "form" }))
+                    {
+                        <input type="search" class="search-field" placeholder="Type here to search..." id="serachStr" name="searchStr" title="Search for:">
+                    }
+                </label>
+            </div>
+
+            <div class="site-info-holder">
+                <h1 class="site-title">Blogger</h1>
+                <p class="site-description">
+                    A place where I can share my ideas and thoughts with the world..
+                </p>
+            </div>
+            <nav id="header-main-menu">
+                <ul class="main-menu sm sm-clean">
+                    <li><a href=@Url.Action("Index","Home") class="current">Home</a></li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li><a href=@Url.Action("Create","BlogPosts")>Create Blog</a></li>
+
+                    }
+                    <li><a href=@Url.Action("Index","BlogPosts")>View All Blogs</a></li>
+                    <li><a href=@Url.Action("About","Home")>About Me</a></li>
+                    <li><a href=@Url.Action("Contact","Home")>Contact</a></li>
+                </ul>
+            </nav>
+            <footer>
+                <div class="footer-info">
+                    © 2019 SUPPABLOG HTML TEMPLATE. <br> MODIFIED BY <a href="https://gjzport.azurewebsites.net/" target="_blank">GREG ZAMBRANA</a>.
+                </div>
+            </footer>
+        </div>
+        <div class="menu-right-part">
+            <div class="logo-holder">
+                <a href=@Url.Action("Index","Home")>
+                    <img src="~/Images/logo.png" alt="Suppablog WP">
+                </a>
+            </div>
+            <div class="toggle-holder">
+                <div id="toggle">
+                    <div class="menu-line"></div>
+                </div>
+            </div>
+            <div class="social-holder">
+                <div class="social-list">
+                    <a href="https://github.com/Greg712144" target="_blank"><i class="fa fa-github-square"></i></a>
+                    <a href="https://www.linkedin.com/in/gregorio-zambrana-5873a8152/" target="_blank"><i class="fa fa-linkedin-square"></i></a>
+
+                </div>
+            </div>
+            <div class="fixed scroll-top"><i class="fa fa-caret-square-o-up" aria-hidden="true"></i></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+
+    <!-- About Content -->
+    <div id="content" class="site-content">
+        <div class="page-header-image relative">
+            <img src="~/Images/Blogger1.jpg" style="height:200px;" alt="About">
+        </div>
+
+        <article>
+            <div class="content-1070 center-relative entry-content">
+                <div class="content-900 center-relative">
+                    <h1 class="entry-title">Hello Everyone!</h1>
+                    <div class="one_half ">
+                        You've reached the contact page, woo hoo! <p></p>
+                        <br>
+                        <p>If you have any concerns , questions or want to know what I think about certain blog topics, please feel free to give me a call or send me a message and I will get back to you as soon as possible.</p>
+                        <br>
+                        <div class="montserrat">
+                            <span style="color: #adadad;">Address:</span>&nbsp;Statesville, NC, United States<br>
+                            <span style="color: #adadad;">Phone:</span> +1 704-657-7253<br>
+                            <span style="color: #adadad;">Hours:</span> 9:00 am – 5:00 am
+                        </div>
+                    </div>
+                    <div class="one_half last ">
+                        <div class="contact-form">
+                            @using (Html.BeginForm("Contact", "Home", FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken();
+                                <p><input id="contact-email" type="email" name="your-email" placeholder="Email"></p>
+                                <p><textarea id="message" name="your-message" placeholder="Message"></textarea></p>
+                                <p><input type="submit" onClick="SendMail()" value="SEND"></p>
+                            }
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </article>
+    </div>
+
+
+
+
+    <script src="~/Javascript/jquery.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Javascript/imagesloaded.pkgd.js"></script>
+    <script src="~/Javascript/jquery.nicescroll.min.js"></script>
+    <script src="~/Javascript/jquery.smartmenus.min.js"></script>
+    <script src="~/Javascript/jquery.carouFredSel-6.0.0-packed.js"></script>
+    <script src="~/Javascript/jquery.mousewheel.min.js"></script>
+    <script src="~/Javascript/jquery.touchSwipe.min.js"></script>
+    <script src="~/Javascript/jquery.easing.1.3.js"></script>
+    <script src="~/Javascript/main.js"></script>
+</body>
+</html>
+
+
